@@ -2,6 +2,7 @@ package com.projeto.appalergias.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -14,13 +15,14 @@ public class Usuario implements Serializable {
 	private Integer rg;
 	private String email;
 	private String senha;
+	private List<Alergia> alergias;
 
 	public Usuario() {
 
 	}
 
 	public Usuario(Integer id, String nome, Date datanascimento, String telefone, Integer cartaoSus, Integer rg,
-			String email, String senha) {
+			String email, String senha, List<Alergia> alergias) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -30,6 +32,7 @@ public class Usuario implements Serializable {
 		this.rg = rg;
 		this.email = email;
 		this.senha = senha;
+		this.alergias = alergias;
 	}
 
 	public Integer getId() {
@@ -96,10 +99,19 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
+	public List<Alergia> getAlergias() {
+		return alergias;
+	}
+
+	public void setAlergias(List<Alergia> alergias) {
+		this.alergias = alergias;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((alergias == null) ? 0 : alergias.hashCode());
 		result = prime * result + ((cartaoSus == null) ? 0 : cartaoSus.hashCode());
 		result = prime * result + ((datanascimento == null) ? 0 : datanascimento.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
@@ -120,6 +132,11 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
+		if (alergias == null) {
+			if (other.alergias != null)
+				return false;
+		} else if (!alergias.equals(other.alergias))
+			return false;
 		if (cartaoSus == null) {
 			if (other.cartaoSus != null)
 				return false;
