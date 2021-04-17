@@ -1,12 +1,22 @@
 package com.projeto.appalergias.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private Date datanascimento;
@@ -15,14 +25,16 @@ public class Usuario implements Serializable {
 	private Integer rg;
 	private String email;
 	private String senha;
-	private List<Alergia> alergias;
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Alergia> alergias = new ArrayList<>();
 
 	public Usuario() {
 
 	}
 
-	public Usuario(Integer id, String nome, Date datanascimento, String telefone, Integer cartaoSus, Integer rg,
-			String email, String senha, List<Alergia> alergias) {
+	public Usuario(Integer id, String nome, Date datanascimento, String telefone, 
+						Integer cartaoSus, Integer rg, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -32,7 +44,6 @@ public class Usuario implements Serializable {
 		this.rg = rg;
 		this.email = email;
 		this.senha = senha;
-		this.alergias = alergias;
 	}
 
 	public Integer getId() {

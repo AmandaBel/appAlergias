@@ -2,23 +2,36 @@ package com.projeto.appalergias.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Alergia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nomeAlergia;
-	private String descrição;
+	private String descricao;
+	
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
 	public Alergia() {
 
 	}
 
-	public Alergia(Integer id, String nomeAlergia, String descrição, Usuario usuario) {
+	public Alergia(Integer id, String nomeAlergia, String descricao, Usuario usuario) {
 		super();
 		this.id = id;
 		this.nomeAlergia = nomeAlergia;
-		this.descrição = descrição;
+		this.descricao = descricao;
 		this.usuario = usuario;
 	}
 
@@ -38,12 +51,12 @@ public class Alergia implements Serializable {
 		this.nomeAlergia = nomeAlergia;
 	}
 
-	public String getDescrição() {
-		return descrição;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescrição(String descrição) {
-		this.descrição = descrição;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Usuario getUsuario() {
@@ -58,7 +71,7 @@ public class Alergia implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((descrição == null) ? 0 : descrição.hashCode());
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nomeAlergia == null) ? 0 : nomeAlergia.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
@@ -74,10 +87,10 @@ public class Alergia implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Alergia other = (Alergia) obj;
-		if (descrição == null) {
-			if (other.descrição != null)
+		if (descricao == null) {
+			if (other.descricao != null)
 				return false;
-		} else if (!descrição.equals(other.descrição))
+		} else if (!descricao.equals(other.descricao))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -97,4 +110,5 @@ public class Alergia implements Serializable {
 		return true;
 	}
 
+	
 }
