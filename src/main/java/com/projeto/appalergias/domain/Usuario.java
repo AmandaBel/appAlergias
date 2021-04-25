@@ -16,7 +16,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private Date datanascimento;
@@ -25,7 +25,7 @@ public class Usuario implements Serializable {
 	private Integer rg;
 	private String email;
 	private String senha;
-	
+
 	@OneToMany(mappedBy = "usuario")
 	private List<Alergia> alergias = new ArrayList<>();
 
@@ -33,8 +33,22 @@ public class Usuario implements Serializable {
 
 	}
 
-	public Usuario(Integer id, String nome, Date datanascimento, String telefone, 
-						Integer cartaoSus, Integer rg, String email, String senha) {
+	public Usuario(Integer id, String nome, Date datanascimento, String telefone, Integer cartaoSus, Integer rg,
+			String email, String senha, List<Alergia> alergias) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.datanascimento = datanascimento;
+		this.telefone = telefone;
+		this.cartaoSus = cartaoSus;
+		this.rg = rg;
+		this.email = email;
+		this.senha = senha;
+		this.alergias = alergias;
+	}
+
+	public Usuario(Integer id, String nome, Date datanascimento, String telefone, Integer cartaoSus, Integer rg,
+			String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;

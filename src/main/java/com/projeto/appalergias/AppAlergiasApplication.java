@@ -17,10 +17,10 @@ import com.projeto.appalergias.repositories.UsuarioRepository;
 public class AppAlergiasApplication implements CommandLineRunner {
 	
 	@Autowired
-	AlergiaRepository alergiaRepository;
+	private AlergiaRepository alergiaRepository;
 
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppAlergiasApplication.class, args);
