@@ -19,6 +19,7 @@ import com.projeto.appalergias.domain.Usuario;
 import com.projeto.appalergias.dto.UsuarioDTO;
 import com.projeto.appalergias.service.AlergiaService;
 import com.projeto.appalergias.service.UsuarioService;
+import com.projeto.appalergias.service.exception.UsuarioDuplicadoException;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -39,7 +40,7 @@ public class UsuarioResource {
 	}
 
 	@RequestMapping(value = "rg/{rg}", method = RequestMethod.GET)
-	public ResponseEntity<Usuario> findRg(@PathVariable Integer rg) throws ObjectNotFoundException {
+	public ResponseEntity<Usuario> findRg(@PathVariable Integer rg) {
 		Usuario usuario = usuarioservice.buscarRg(rg);
 		return ResponseEntity.ok().body(usuario);
 	}
@@ -51,8 +52,13 @@ public class UsuarioResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO usuarioDTO) throws ObjectNotFoundException {
 		Usuario usuario = usuarioservice.fromDTO(usuarioDTO);
+
+		if ((usuarioservice.buscarRg(usuario.getRg())) != null) {
+			throw new UsuarioDuplicadoException("Já existe usuário cadastrado parao o rg: " + usuario.getRg());
+		}
+
 		usuario = usuarioservice.insert(usuario);
 		System.out.println("TAMANHO:" + usuario.getAlergias().size());
 		if (!usuario.getAlergias().isEmpty()) {

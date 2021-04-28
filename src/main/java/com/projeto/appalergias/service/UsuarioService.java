@@ -27,13 +27,20 @@ public class UsuarioService {
 				"Objeto não encontrado! Id: " + id + " , Tipo: " + Usuario.class.getName()));
 	}
 
-//	BUSCA DE USUARIO POR RG
-	public Usuario buscarRg(Integer rg) throws ObjectNotFoundException {
-		Optional<Usuario> usuario = usuarioRepository.findByRg(rg);
-		return usuario.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Rg " + rg + " , Tipo: " + Usuario.class.getName()));
-	}
+////	BUSCA DE USUARIO POR RG
+//	public Usuario buscarRg(Integer rg) {
+//		Optional<Usuario> usuario = usuarioRepository.findByRg(rg);
+////		return usuario.orElseThrow(() -> new ObjectNotFoundException(
+////				"Objeto não encontrado! Rg " + rg + " , Tipo: " + Usuario.class.getName()));
+//		return usuario.get();
+//	}
 
+//	BUSCA DE USUARIO POR RG
+	public Usuario buscarRg(Integer rg) {
+		Usuario usuario = usuarioRepository.findByRg(rg);
+		return usuario;
+	}
+	
 //	EXIBIR TODOS OS USUARIOS
 	public List<Usuario> buscarTodos() {
 		List<Usuario> usuarios = usuarioRepository.findAll();

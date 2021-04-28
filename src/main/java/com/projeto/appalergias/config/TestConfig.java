@@ -9,7 +9,7 @@ import com.projeto.appalergias.service.DBService;
 import com.sun.el.parser.ParseException;
 
 @Configuration
-@Profile("test")
+@Profile("teste")
 public class TestConfig {
 
 //	UTILIZADO PARA CRIAR DADOS PARA DETERMINADO AMBIENTE, TIPO: TESTE, PRODUCAO E DESENVOLVIMENTO.

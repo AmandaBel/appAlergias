@@ -14,5 +14,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	Optional<Usuario> findById(Integer id);
 
 	@Transactional(readOnly = true)
-	Optional<Usuario> findByRg(Integer rg);
+	Usuario findByRg(Integer rg);
+//	Optional<Usuario> findByRg(Integer rg);
 }
