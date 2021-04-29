@@ -52,11 +52,11 @@ public class UsuarioResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO usuarioDTO) throws ObjectNotFoundException {
+	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioDTO usuarioDTO) {
 		Usuario usuario = usuarioservice.fromDTO(usuarioDTO);
 
 		if ((usuarioservice.buscarRg(usuario.getRg())) != null) {
-			throw new UsuarioDuplicadoException("Já existe usuário cadastrado parao o rg: " + usuario.getRg());
+			throw new UsuarioDuplicadoException("Já existe usuário cadastrado para o rg: " + usuario.getRg());
 		}
 
 		usuario = usuarioservice.insert(usuario);
