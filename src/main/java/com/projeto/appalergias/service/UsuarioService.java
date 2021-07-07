@@ -40,7 +40,7 @@ public class UsuarioService {
 		Usuario usuario = usuarioRepository.findByRg(rg);
 		return usuario;
 	}
-	
+
 //	EXIBIR TODOS OS USUARIOS
 	public List<Usuario> buscarTodos() {
 		List<Usuario> usuarios = usuarioRepository.findAll();
@@ -54,10 +54,27 @@ public class UsuarioService {
 		return usuario;
 	}
 
+	public Usuario update(Usuario usuario) throws ObjectNotFoundException {
+		Usuario novoUsuario = buscarId(usuario.getId());
+		updateData(novoUsuario,usuario);
+		return usuarioRepository.save(novoUsuario);
+	}
+
 	public Usuario fromDTO(UsuarioDTO usuarioDTO) {
 		return new Usuario(usuarioDTO.getId(), usuarioDTO.getNome(), usuarioDTO.getDatanascimento(),
 				usuarioDTO.getTelefone(), usuarioDTO.getCartaoSus(), usuarioDTO.getRg(), usuarioDTO.getEmail(),
-				usuarioDTO.getSenha(),usuarioDTO.getAlergias());
+				usuarioDTO.getSenha(), usuarioDTO.getAlergias());
+	}
+
+	private void updateData(Usuario newUsuario, Usuario usuario) {
+		newUsuario.setNome(usuario.getNome());
+		newUsuario.setRg(usuario.getRg());
+	}
+	
+	
+	public void delete(Integer id) throws ObjectNotFoundException {
+		Usuario usuario = buscarId(id);
+		usuarioRepository.delete(usuario);
 	}
 
 //	EXIBIR RESULTADOS EM PAGINAS

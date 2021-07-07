@@ -47,7 +47,7 @@ public class UsuarioResource {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Usuario> findALL() {
-		List<Usuario> usuarios = usuarioservice.buscarTodos();
+		List<Usuario> usuarios = usuarioservice.buscarTodos(); 
 		return usuarios;
 	}
 
@@ -57,6 +57,7 @@ public class UsuarioResource {
 
 		if ((usuarioservice.buscarRg(usuario.getRg())) != null) {
 			throw new UsuarioDuplicadoException("Já existe usuário cadastrado para o rg: " + usuario.getRg());
+
 		}
 
 		usuario = usuarioservice.insert(usuario);
@@ -76,6 +77,14 @@ public class UsuarioResource {
 				.toUri();
 		return ResponseEntity.created(uri).build();
 
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO usuarioDTO, @PathVariable Integer id) throws ObjectNotFoundException{
+		Usuario usuario = usuarioservice.fromDTO(usuarioDTO);
+		usuario.setId(id);
+		usuario = usuarioservice.update(usuario);
+		return ResponseEntity.noContent().build();
 	}
 
 }
