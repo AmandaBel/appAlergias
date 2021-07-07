@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.projeto.appalergias.domain.Usuario;
@@ -16,6 +17,9 @@ import javassist.tools.rmi.ObjectNotFoundException;
 
 @Service
 public class UsuarioService {
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -63,7 +67,7 @@ public class UsuarioService {
 	public Usuario fromDTO(UsuarioDTO usuarioDTO) {
 		return new Usuario(usuarioDTO.getId(), usuarioDTO.getNome(), usuarioDTO.getDatanascimento(),
 				usuarioDTO.getTelefone(), usuarioDTO.getCartaoSus(), usuarioDTO.getRg(), usuarioDTO.getEmail(),
-				usuarioDTO.getSenha(), usuarioDTO.getAlergias());
+				passwordEncoder.encode(usuarioDTO.getSenha()), usuarioDTO.getAlergias());
 	}
 
 	private void updateData(Usuario newUsuario, Usuario usuario) {
